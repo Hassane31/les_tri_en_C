@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 void TriRapid(int T[],int g,int d){
+   if(g<d){
     int pi=partition(T,g,d);
     TriRapid(T,g,pi-1);
     TriRapid(T,pi+1,d);
+   }
 }
  int partition(int T[],int g,int d){
     int pivot=T[d];
@@ -11,10 +13,10 @@ void TriRapid(int T[],int g,int d){
     for(int j=g ;j<d;j++){
         if(T[j]<=pivot){
             i++;
-            echange(&T[i],T[j]);
+            echange(&T[i],&T[j]);
         }
     }
-    echange(&T[i+1],T[d]);
+    echange(&T[i+1],&T[d]);
     return (i+1);
  }
 void echange(int *X,int *Y){
@@ -30,9 +32,10 @@ void affichage(int T[],int n){
 int main(){
 int taille =6;
 int T[]={20,25,35,12,10};
-
+printf("tableau :\n");
+affichage(T,taille);
 TriRapid(T,0,taille);
-printf("tableau tri = ");
+printf("\ntableau tri = ");
 affichage(T,taille);
     return 0;
 }
